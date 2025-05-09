@@ -19,7 +19,7 @@ void ShowNote(const std::string& s)
 	MultiByteToWideChar(CP_ACP, 0, s.c_str(), slength, buf, len);
 	std::wstring r(buf);
 	delete[] buf;
-	MessageBox(NULL, r.c_str(), L"ÕâÀï±¾À´²»¸ÃÃ°³öÀ´×ÔC++µÄÌáÊ¾", MB_OK);
+	MessageBox(NULL, r.c_str(), L"A Error", MB_OK);
 }
 void Replacer(string& inside, const string& FindChar, const string& ReplaceChar)
 {
@@ -33,7 +33,7 @@ void Replacer(string& inside, const string& FindChar, const string& ReplaceChar)
 	}
 }
 
-/* IP¼ÆÊıÆ÷ */
+/* IPè®¡æ•°å™¨ */
 std::map<std::string, int> counter;
 #include<list>
 struct PackageHandle {
@@ -43,7 +43,7 @@ struct PackageHandle {
 static list<PackageHandle> marray;
 static list<int> sarray;
 
-/* ÍøÂçĞ­Òé½á¹¹Ìå */
+/* ç½‘ç»œåè®®ç»“æ„ä½“ */
 struct ip_v4_address
 {
 	u_char byte1;
@@ -214,7 +214,7 @@ void init_device(char* args)
 	if (pcap_findalldevs(&alldevs, errbuf) == -1)
 	{
 		const std::string var = errbuf;
-		const std::string msg = "ÔÚÑ°ÕÒËùÓĞÍøÂçÉè±¸Ê±,³öÏÖÎÊÌâ:" + var;
+		const std::string msg = "A Error while finding network card:" + var;
 		ShowNote(msg);
 		exit(1);
 	}
@@ -232,11 +232,11 @@ void init_device(char* args)
 			memcpy(args + i++, endl, 1);
 		}
 		else
-			ShowNote("´æÔÚÒ»¸öÃ»ÓĞĞÕÃûµÄÍø¿¨(Ì¯ÊÖ)");
+			ShowNote("A network card lacks name");
 	}
 	if (circ == 0)
 	{
-		ShowNote("Ò»¸öÍø¿¨Ò²Ã»ÓĞ¿©~");
+		ShowNote("No available network card");
 	}
 	args[i] = '\0';
 	return;
@@ -321,8 +321,8 @@ void add_to_map(map<string, int>& counter, ip_v6_address ip)
 void print_map(map<string, int> counter)
 {
 	map<string, int>::iterator iter;
-	cout << DIVISION << "Á÷Á¿Í³¼Æ" << DIVISION << endl;
-	cout << "IP" << setfill(' ') << setw(45) << "Á÷Á¿" << endl;
+	cout << DIVISION << "Flow statistics" << DIVISION << endl;
+	cout << "IP" << setfill(' ') << setw(45) << "Flow" << endl;
 	for (iter = counter.begin(); iter != counter.end(); iter++)
 	{
 		cout << iter->first << setfill('.') << setw(45 - iter->first.length()) << iter->second << endl;
